@@ -6,7 +6,7 @@ var testServer = require('./test-servers.js');
 			port:8080,
 			user:"aacero",
 			password:"nostromo73"
-		},		
+		},
 		user:"acero",
 		password:"nostromo"
 	},
@@ -24,20 +24,23 @@ var testServer = require('./test-servers.js');
 
 	
 	var client = new Client(default_config),
-		args = null;
+		args = {};
 
-	client.registerMethod("testJson", "http://127.0.0.1:4444/json", "GET");
-
-	client.methods.testJson(null,null,function(data){
-		console.log(data);
-		
-	});
-
-
-	client.get("http://localhost:4444/json",null,function(data){
-		console.log(data);
-	});
-
-		
-		
 	
+	client.registerMethod("testJson", "http://127.0.0.1:4445/json", "GET");
+
+	client.methods.testJson(function(data){
+		console.log(data);
+		
+	});
+
+
+
+	client.get("http://localhost:4444/json",function(data){
+		console.log(data);
+	});
+
+
+	client.on('error',function(err){
+		console.error("error desde evento",err);
+	});
